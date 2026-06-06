@@ -1,0 +1,85 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #0d0d0d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+  font-family: 'Courier New', monospace;
+}
+
+#gameCanvas {
+  display: block;
+  image-rendering: pixelated;
+}
+
+#touch-controls {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 16px;
+  pointer-events: none;
+}
+
+@media (pointer: coarse) {
+  #touch-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 12px;
+  }
+}
+
+#touch-left,
+#touch-right {
+  width: 80px;
+  height: 80px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  color: rgba(255,255,255,0.6);
+  pointer-events: all;
+  user-select: none;
+  -webkit-user-select: none;
+  background: rgba(255,255,255,0.08);
+  cursor: pointer;
+}
+
+#touch-turbo {
+  flex: 1;
+  height: 60px;
+  border: 2px solid rgba(255,200,0,0.4);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 3px;
+  color: rgba(255,200,0,0.7);
+  pointer-events: all;
+  user-select: none;
+  -webkit-user-select: none;
+  background: rgba(255,200,0,0.06);
+  cursor: pointer;
+}
+
+#touch-left:active,
+#touch-right:active {
+  background: rgba(255,255,255,0.18);
+}
+
+#touch-turbo:active {
+  background: rgba(255,200,0,0.18);
+}

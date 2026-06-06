@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Khodam Battle</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+
+    <!-- SCREEN: MENU -->
+    <div id="screen-menu" class="screen active">
+      <div class="center-box">
+        <h1 class="logo">👻 Khodam Battle</h1>
+        <p class="subtitle">Cek khodam kamu, lalu lawan musuh!</p>
+        <div class="menu-buttons">
+          <button onclick="startGame('solo')">⚔️ 1 Player vs CPU</button>
+          <button onclick="startGame('duo')">👥 2 Player Lokal</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN: ROLL -->
+    <div id="screen-roll" class="screen">
+      <div class="roll-area">
+        <h2 id="roll-title">Siapa khodam kamu?</h2>
+        <div class="players-roll">
+          <div class="player-roll-card" id="roll-p1">
+            <div class="player-label" id="roll-p1-label">Player 1</div>
+            <div class="khodam-display" id="khodam-p1">?</div>
+            <div class="khodam-name" id="khodam-name-p1">—</div>
+            <div class="stats" id="stats-p1"></div>
+            <button id="btn-roll-p1" onclick="rollKhodam(1)">🎲 Cek Khodam</button>
+          </div>
+          <div class="vs-divider">VS</div>
+          <div class="player-roll-card" id="roll-p2">
+            <div class="player-label" id="roll-p2-label">Player 2</div>
+            <div class="khodam-display" id="khodam-p2">?</div>
+            <div class="khodam-name" id="khodam-name-p2">—</div>
+            <div class="stats" id="stats-p2"></div>
+            <button id="btn-roll-p2" onclick="rollKhodam(2)">🎲 Cek Khodam</button>
+          </div>
+        </div>
+        <button id="btn-start-battle" class="btn-primary hidden" onclick="startBattle()">⚔️ Mulai Battle!</button>
+      </div>
+    </div>
+
+    <!-- SCREEN: BATTLE -->
+    <div id="screen-battle" class="screen">
+      <div class="battle-area">
+        <div class="battle-header">
+          <div class="hp-block">
+            <span id="battle-name-p1">—</span>
+            <div class="hp-bar-wrap"><div class="hp-bar" id="hp-bar-p1"></div></div>
+            <span id="hp-text-p1">100 HP</span>
+          </div>
+          <div class="round-info">Ronde <span id="round-num">1</span></div>
+          <div class="hp-block right">
+            <span id="battle-name-p2">—</span>
+            <div class="hp-bar-wrap"><div class="hp-bar" id="hp-bar-p2"></div></div>
+            <span id="hp-text-p2">100 HP</span>
+          </div>
+        </div>
+
+        <div class="battle-stage">
+          <div class="fighter" id="fighter-p1">
+            <div class="fighter-emoji" id="emoji-p1">👻</div>
+            <div class="fighter-name" id="fname-p1">—</div>
+          </div>
+          <div class="battle-log" id="battle-log">Pilih aksimu!</div>
+          <div class="fighter" id="fighter-p2">
+            <div class="fighter-emoji" id="emoji-p2">👻</div>
+            <div class="fighter-name" id="fname-p2">—</div>
+          </div>
+        </div>
+
+        <div class="action-area" id="action-area">
+          <div class="action-label" id="action-label">Giliran Player 1 — Pilih aksi:</div>
+          <div class="action-buttons">
+            <button onclick="chooseAction('attack')">⚔️ Serang</button>
+            <button onclick="chooseAction('defend')">🛡️ Bertahan</button>
+            <button onclick="chooseAction('luck')">🍀 Keberuntungan</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN: RESULT -->
+    <div id="screen-result" class="screen">
+      <div class="center-box">
+        <div class="result-emoji" id="result-emoji">🏆</div>
+        <h2 id="result-title">—</h2>
+        <p id="result-desc">—</p>
+        <div class="menu-buttons">
+          <button onclick="showScreen('screen-menu')">🏠 Menu Utama</button>
+          <button onclick="rerollBattle()">🔄 Main Lagi</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <script src="game.js"></script>
+</body>
+</html>

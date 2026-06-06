@@ -1,0 +1,211 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #f5f5f5;
+  color: #1a1a1a;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#app {
+  width: 100%;
+  max-width: 700px;
+  min-height: 100vh;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.screen { display: none; padding: 2rem; }
+.screen.active { display: flex; flex-direction: column; justify-content: center; min-height: 100vh; }
+
+/* MENU */
+.center-box { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
+.logo { font-size: 2.2rem; font-weight: 700; }
+.subtitle { color: #666; font-size: 1rem; }
+.menu-buttons { display: flex; flex-direction: column; gap: 12px; width: 100%; max-width: 280px; }
+.menu-buttons button, .btn-primary {
+  padding: 14px 24px;
+  border: 2px solid #1a1a1a;
+  background: #fff;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.menu-buttons button:hover, .btn-primary:hover { background: #1a1a1a; color: #fff; }
+
+/* ROLL */
+.roll-area { display: flex; flex-direction: column; align-items: center; gap: 2rem; }
+.roll-area h2 { font-size: 1.4rem; font-weight: 600; }
+.players-roll { display: flex; align-items: center; gap: 1rem; width: 100%; }
+.player-roll-card {
+  flex: 1;
+  border: 2px solid #e5e5e5;
+  border-radius: 14px;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  transition: border-color 0.2s;
+}
+.player-roll-card.revealed { border-color: #1a1a1a; }
+.player-label { font-size: 0.8rem; font-weight: 600; color: #999; text-transform: uppercase; letter-spacing: 1px; }
+.khodam-display { font-size: 3rem; }
+.khodam-name { font-size: 1rem; font-weight: 600; min-height: 1.4rem; }
+.stats { font-size: 0.78rem; color: #555; line-height: 1.8; min-height: 3.5rem; }
+.player-roll-card button {
+  margin-top: 8px;
+  padding: 10px 18px;
+  border: 2px solid #1a1a1a;
+  background: #fff;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.player-roll-card button:hover { background: #1a1a1a; color: #fff; }
+.player-roll-card button:disabled { opacity: 0.3; cursor: default; }
+.vs-divider { font-size: 1.2rem; font-weight: 700; color: #999; flex-shrink: 0; }
+.btn-primary { width: 100%; max-width: 260px; }
+.hidden { display: none !important; }
+
+/* BATTLE */
+.battle-area { display: flex; flex-direction: column; gap: 1.5rem; }
+.battle-header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.hp-block { flex: 1; display: flex; flex-direction: column; gap: 5px; font-size: 0.85rem; font-weight: 600; }
+.hp-block.right { text-align: right; align-items: flex-end; }
+.hp-bar-wrap { width: 100%; height: 10px; background: #eee; border-radius: 99px; overflow: hidden; }
+.hp-bar { height: 100%; background: #1a1a1a; border-radius: 99px; transition: width 0.4s; width: 100%; }
+.hp-text { font-size: 0.75rem; color: #666; }
+.round-info { font-size: 0.8rem; color: #999; font-weight: 600; white-space: nowrap; }
+
+.battle-stage {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 2px solid #e5e5e5;
+  border-radius: 14px;
+  padding: 1.5rem 1rem;
+  gap: 1rem;
+}
+.fighter { text-align: center; flex-shrink: 0; }
+.fighter-emoji { font-size: 3.5rem; transition: transform 0.15s; }
+.fighter-emoji.shake { animation: shake 0.3s; }
+.fighter-name { font-size: 0.75rem; color: #666; margin-top: 6px; font-weight: 600; }
+.battle-log {
+  flex: 1;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #333;
+  line-height: 1.6;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.action-area { display: flex; flex-direction: column; gap: 12px; align-items: center; }
+.action-label { font-size: 0.85rem; color: #666; font-weight: 600; }
+.action-buttons { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+.action-buttons button {
+  padding: 12px 20px;
+  border: 2px solid #1a1a1a;
+  background: #fff;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.action-buttons button:hover { background: #1a1a1a; color: #fff; }
+.action-buttons button:disabled { opacity: 0.3; cursor: default; }
+
+/* RESULT */
+.result-emoji { font-size: 4rem; }
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-8px); }
+  75% { transform: translateX(8px); }
+}
+/* ── Vancin — Khodam Terlangka ── */
+.vancin-img {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #cc0000;
+  box-shadow: 0 0 12px #cc0000;
+}
+
+.vancin-reveal {
+  border-color: #cc0000 !important;
+  background: rgba(180, 0, 0, 0.08) !important;
+}
+
+.vancin-glow {
+  box-shadow: 0 0 24px 6px rgba(200, 0, 0, 0.5), 0 0 60px 12px rgba(200, 0, 0, 0.2);
+  animation: vancin-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes vancin-pulse {
+  0%, 100% { box-shadow: 0 0 18px 4px rgba(200, 0, 0, 0.45); }
+  50%       { box-shadow: 0 0 36px 10px rgba(200, 0, 0, 0.75); }
+}
+
+.rare-badge {
+  color: #cc0000;
+  font-weight: bold;
+  font-size: 0.85em;
+  letter-spacing: 0.5px;
+  animation: rare-flicker 1.2s ease-in-out infinite;
+}
+
+@keyframes rare-flicker {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
+}
+
+/* ── Slot Machine Roll Animation ── */
+.rolling {
+  border-color: #1a1a1a !important;
+  background: #fafafa !important;
+  transition: border-color 0.2s;
+}
+
+/* Hapus slot-shake — diganti glow halus saja */
+.rolling .khodam-display {
+  animation: none;
+  opacity: 0.85;
+}
+
+/* Flash per-ganti emoji: hanya opacity & scale kecil, bukan brightness loncat */
+.slot-flash {
+  animation: flash-soft 0.12s ease-out forwards;
+}
+
+@keyframes flash-soft {
+  0%   { opacity: 0.3; transform: scale(0.9); }
+  60%  { opacity: 1;   transform: scale(1.04); }
+  100% { opacity: 1;   transform: scale(1); }
+}
+
+/* Pop saat reveal hasil akhir */
+.reveal-pop {
+  animation: pop-in 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes pop-in {
+  0%   { transform: scale(0.85); opacity: 0.5; }
+  60%  { transform: scale(1.06); opacity: 1; }
+  100% { transform: scale(1); }
+}

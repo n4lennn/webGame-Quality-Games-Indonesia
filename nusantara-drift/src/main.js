@@ -1,45 +1,42 @@
-import { initInput }    from './utils/input.js';
-import { MenuScene }    from './scenes/menu.js';
-import { GameScene }    from './scenes/game.js';
+import { initInput }     from './utils/input.js';
+import { MenuScene }     from './scenes/menu.js';
+import { GameScene }     from './scenes/game.js';
 import { GameOverScene } from './scenes/gameover.js';
 
-// ── Canvas setup ──────────────────────────────────────────────
 const canvas = document.getElementById('gameCanvas');
 const ctx    = canvas.getContext('2d');
 
 function resize() {
-  const size = Math.min(window.innerWidth, window.innerHeight, 600);
   canvas.width  = 600;
-  canvas.height = 600;
-  canvas.style.width  = size + 'px';
-  canvas.style.height = size + 'px';
+  canvas.height = 800;
+  const scale = Math.min(window.innerWidth / 600, window.innerHeight / 800);
+  canvas.style.width  = (600 * scale) + 'px';
+  canvas.style.height = (800 * scale) + 'px';
 }
 resize();
 window.addEventListener('resize', resize);
 
-// ── Scene instances ───────────────────────────────────────────
 const menu     = new MenuScene(canvas);
 const game     = new GameScene(canvas);
 const gameover = new GameOverScene(canvas);
 
-// ── State machine ─────────────────────────────────────────────
-// States: 'MENU' | 'PLAYING' | 'GAMEOVER'
-let state = 'MENU';
+let state       = 'MENU';
+let lastVehicle = 'bajaj'; // simpan pilihan terakhir di sini
 
 menu.onStart = (vehicleType) => {
+  lastVehicle = vehicleType; // simpan sebelum start
   game.start(vehicleType);
   state = 'PLAYING';
 };
 
 game.onGameOver = (score, vehicleType) => {
+  lastVehicle = vehicleType; // update lagi untuk jaga-jaga
   gameover.show(score, vehicleType);
   state = 'GAMEOVER';
 };
 
 gameover.onRestart = () => {
-  // Re-use last selected vehicle
-  const lastVehicle = game.vehicle?.type || 'bajaj';
-  game.start(lastVehicle);
+  game.start(lastVehicle); // pakai lastVehicle yang tersimpan
   state = 'PLAYING';
 };
 
@@ -47,13 +44,10 @@ gameover.onMenu = () => {
   state = 'MENU';
 };
 
-// ── Input ─────────────────────────────────────────────────────
 initInput();
 
-// ── Game loop ─────────────────────────────────────────────────
 function loop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-
   switch (state) {
     case 'MENU':
       menu.draw();
@@ -63,12 +57,10 @@ function loop() {
       game.draw();
       break;
     case 'GAMEOVER':
-      // Keep game world visible behind gameover overlay
       game.draw();
       gameover.draw();
       break;
   }
-
   requestAnimationFrame(loop);
 }
 

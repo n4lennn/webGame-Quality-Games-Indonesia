@@ -21,26 +21,27 @@ const game     = new GameScene(canvas);
 const gameover = new GameOverScene(canvas);
 
 let state       = 'MENU';
-let lastVehicle = 'bajaj'; // simpan pilihan terakhir di sini
+let lastVehicle = 'bajaj';
 
 menu.onStart = (vehicleType) => {
-  lastVehicle = vehicleType; // simpan sebelum start
+  lastVehicle = vehicleType;
   game.start(vehicleType);
   state = 'PLAYING';
 };
 
 game.onGameOver = (score, vehicleType) => {
-  lastVehicle = vehicleType; // update lagi untuk jaga-jaga
+  lastVehicle = vehicleType;
   gameover.show(score, vehicleType);
   state = 'GAMEOVER';
 };
 
 gameover.onRestart = () => {
-  game.start(lastVehicle); // pakai lastVehicle yang tersimpan
+  game.start(lastVehicle);
   state = 'PLAYING';
 };
 
 gameover.onMenu = () => {
+  menu.show(); // aktifkan kembali menu listener
   state = 'MENU';
 };
 
